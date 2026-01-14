@@ -77,7 +77,7 @@ page1 = r"""
 {red}                            ____________________________________________________________
 {red}                            |                                                           |
 {red}                            | - DDoS [1]                                                |
-{red}                            |                                                           |
+{red}                            | - Website Scanner [2]                                     |
 {red}                            |                                                           |
 {red}                            |                                                           |
 {red}                            |                                                           |
@@ -93,6 +93,7 @@ page1 = r"""
 
 option_files = {
     1: "Program/ddos.py",
+    2: "Program/website-scanner.py",
 }
 
 def open_python_file(filepath):
