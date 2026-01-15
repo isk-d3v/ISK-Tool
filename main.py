@@ -78,7 +78,7 @@ page1 = r"""
 {red}                            |                                                           |
 {red}                            | - DDoS [1]                                                |
 {red}                            | - Website Scanner [2]                                     |
-{red}                            |                                                           |
+{red}                            | - Ip Lookup [3]                                           |
 {red}                            |                                                           |
 {red}                            |                                                           |
 {red}                            |                                                           |
@@ -130,3 +130,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+
