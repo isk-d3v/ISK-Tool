@@ -94,6 +94,7 @@ page1 = r"""
 option_files = {
     1: "Program/ddos.py",
     2: "Program/website-scanner.py",
+    3: "Program/iplookup.py",
 }
 
 def open_python_file(filepath):
