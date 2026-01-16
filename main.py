@@ -27,6 +27,31 @@ colors = {
     "bright_white": Fore.LIGHTWHITE_EX,
 }
 
+def smooth_gradient(text):
+    gradient = [
+        172, 178, 184, 190, 226,
+        220, 214, 208, 202,
+        214, 220, 226, 190, 184, 178
+    ]
+
+    result = ""
+    g_len = len(gradient)
+    idx = 0
+
+    for char in text:
+        if char == "\n":
+            result += char
+            continue
+
+        color_code = gradient[idx % g_len]
+        result += f"\033[38;5;{color_code}m{char}"
+        idx += 1
+
+    result += "\033[0m"
+    return result
+
+
+
 def replace_user(text):
     username = os.environ.get("USERNAME", "Unknown")
     return text.replace("[user]", username)
@@ -59,16 +84,13 @@ def colorize(text):
     return "".join(parts)
 
 banner = r"""
-
-
-{red}                                     ___ ____  _  __          _____           _ 
-{bright_red}                                    |_ _/ ___|| |/ /         |_   _|__   ___ | |
-{red}                                     | |\___ \| ' /   _____    | |/ _ \ / _ \| |
-{bright_red}                                     | | ___) | . \  |_____|   | | (_) | (_) | |
-{red}                                    |___|____/|_|\_\           |_|\___/ \___/|_|
-
-
+                                     ___ ____  _  __          _____           _ 
+                                    |_ _/ ___|| |/ /         |_   _|__   ___ | |
+                                     | |\___ \| ' /   _____    | |/ _ \ / _ \| |
+                                     | | ___) | . \  |_____|   | | (_) | (_) | |
+                                    |___|____/|_|\_\           |_|\___/ \___/|_|
 """
+
 
 
 
@@ -79,7 +101,7 @@ page1 = r"""
 {red}                            | - DDoS [1]                                                |
 {red}                            | - Website Scanner [2]                                     |
 {red}                            | - Ip Lookup [3]                                           |
-{red}                            |                                                           |
+{red}                            | - Python Encryptor [4]                                    |
 {red}                            |                                                           |
 {red}                            |                                                           |
 {red}                            |                                                           |
@@ -95,6 +117,7 @@ option_files = {
     1: "Program/ddos.py",
     2: "Program/website-scanner.py",
     3: "Program/iplookup.py",
+    4: "Program/pyencryptor.py",
 }
 
 def open_python_file(filepath):
@@ -108,7 +131,7 @@ def open_python_file(filepath):
 
 
 def main():
-    print(colorize(banner))
+    print(smooth_gradient(banner))
     print(colorize(page1))
 
     while True:
@@ -130,4 +153,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-
