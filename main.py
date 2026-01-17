@@ -12,10 +12,22 @@ def install_module(module):
     ])
 
 def check_requirements():
-    required_modules = ["colorama"]
-    for module in required_modules:
-        if not is_module_installed(module):
-            install_module(module)
+    required_modules = {
+        "colorama": "colorama",
+        "requests": "requests",
+        "aiohttp": "aiohttp",
+        "customtkinter": "customtkinter",
+        "phonenumbers": "phonenumbers",
+        "email_validator": "email-validator",
+        "dns": "dnspython",
+        "bs4": "beautifulsoup4",
+        "yt_dlp": "yt-dlp"
+    }
+
+    for import_name, pip_name in required_modules.items():
+        if not is_module_installed(import_name):
+            print(f"[+] Installing {pip_name}...")
+            install_module(pip_name)
 
 check_requirements()
 
