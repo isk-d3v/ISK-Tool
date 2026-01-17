@@ -21,7 +21,12 @@ check_requirements()
 
 import os
 import re
+import webbrowser
 from colorama import init, Fore, Style
+
+GITHUB_LINK = "https://github.com/isk-d3v"
+
+DISCORD_LINK = "https://discord.gg/TefpZhrngk"
 
 init(autoreset=True)
 
@@ -78,6 +83,20 @@ def replace_user(text):
     username = os.environ.get("USERNAME") or os.environ.get("USER") or "Unknown"
     return text.replace("[user]", username)
 
+def open_github_link(url):
+    try:
+        webbrowser.open(url)
+        print(colorize("{green}[+] Browser Opened successfully"))
+    except Execption as e:
+        print(colorize(f"{red}[-] Failed to open browser : {e}"))
+
+def open_discord_link(url):
+    try:
+        webbrowser.open(url)
+        print(colorize("{green}[+] Browser Opened successfully"))
+    except Execption as e:
+        print(colorize(f"{red}[-] Failed to open browser : {e}"))
+
 def colorize(text):
     pattern = re.compile(r"\{(\w+)\}")
     parts = []
@@ -120,7 +139,7 @@ page1 = r"""
                             | - Discord Server Lookup [8]                               |
                             |                                                           |
                             |___________________________________________________________|
-                            | Github Profile [G]                                        |
+                            |  Github Profile [G]      Exit [Q]     Discord Server [D]  |
                           =================================================================
 """
 
@@ -155,6 +174,14 @@ def main():
         if choice.lower() == "q":
             print(colorize("{yellow}Leaving..."))
             sys.exit(0)
+
+        if choice.lower() == "g":
+            open_github_link(GITHUB_LINK)
+            continue
+
+        if choice.lower() == "d":
+            open_discord_link(DISCORD_LINK)
+            continue
 
         if choice.isdigit():
             num = int(choice)
