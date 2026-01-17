@@ -120,6 +120,8 @@ page1 = r"""
                             | - Discord Server Lookup [8]                               |
                             |                                                           |
                             |___________________________________________________________|
+                            | Github Profile [G]                                        |
+                          =================================================================
 """
 
 option_files = {
@@ -145,7 +147,6 @@ def open_python_file(filepath):
 def main():
     print(smooth_gradient(banner))
     print(smooth_gradient(page1))
-    print(colorize(f"{bright_green}OS detected:{white} {OS_NAME}"))
 
     while True:
         prompt = replace_user("\n{bright_blue}[user]{green}@{bright_blue}iskpa - ")
@@ -159,7 +160,7 @@ def main():
             num = int(choice)
             filepath = option_files.get(num)
             if filepath:
-                print(colorize(f"{cyan}Opening:{white} {filepath}"))
+                print(colorize("{cyan}Opening:{white} {filepath}"))
                 open_python_file(filepath)
             else:
                 print(colorize("{red}Invalid option"))
