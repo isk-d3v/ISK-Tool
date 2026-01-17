@@ -190,6 +190,7 @@ option_files = {
     9: "Program/websiteportscanner.py",
     10: "Program/websitecheck.py",
     11: "Program/websitecloner.py",
+    12: "Program/proxyscraper.py"
 }
 
 ALIASES = {
@@ -258,4 +259,5 @@ def main():
 
 if __name__ == "__main__":
     main()
+
 
