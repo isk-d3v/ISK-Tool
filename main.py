@@ -21,7 +21,11 @@ def check_requirements():
         "email_validator": "email-validator",
         "dns": "dnspython",
         "bs4": "beautifulsoup4",
-        "yt_dlp": "yt-dlp"
+        "yt_dlp": "yt-dlp",
+        "flask": "flask",
+        "fastapi": "fastapi",
+        "uvicorn": "uvicorn",
+        "wheel": "wheel"
     }
 
     for import_name, pip_name in required_modules.items():
@@ -150,7 +154,7 @@ page1 = r"""
                             | - Email Lookup [6]                                        |
                             | - Youtube Lookup [7]                                      |
                             | - Discord Server Lookup [8]                               |
-                            |                                                           |
+                            | - Website Port Scanner [9]                                |
                             |___________________________________________________________|
                             |  Github Profile [G]      Exit [Q]     Discord Server [D]  |
                           =================================================================
@@ -160,7 +164,7 @@ page2 = r"""
                             Next [N]                                             Back [B]
                             ____________________________________________________________
                             |                                                           |
-                            |                                                           |
+                            | - Website Check [10]                                      |
                             |                                                           |
                             |                                                           |
                             |                                                           |
@@ -183,25 +187,28 @@ option_files = {
     6: "Program/emaillookup.py",
     7: "Program/youtubelookup.py",
     8: "Program/discordlookup.py",
+    9: "Program/websiteportscanner.py",
+    10: "Program/websitecheck.py",
+}
+
+ALIASES = {
+    "quit": ["q", "Q", "quit", "exit"],
+    "github": ["g", "G", "git", "github"],
+    "discord": ["d", "D", "dc", "discord"],
+    "next": ["n", "N", "next"],
+    "back": ["b", "B", "back"]
 }
 
 def open_python_file(filepath):
-    if not filepath or not os.path.exists(filepath):
-        print(colorize("{red}Error: file not found"))
+    if not os.path.exists(filepath):
+        print(colorize("{red}[-] File not found"))
         return
-    try:
-        subprocess.run([sys.executable, filepath])
-    except Exception as e:
-        print(colorize(f"{red}Execution error: {e}"))
+    subprocess.run([sys.executable, filepath])
 
 def show_page(page):
-    os.system("cls" if OS_NAME == "Windows"
-    else "clear")
+    os.system("cls" if OS_NAME == "Windows" else "clear")
     print(smooth_gradient(banner))
-    if page == 1:
-        print(smooth_gradient(page1))
-    elif page == 2:
-        print(smooth_gradient(page2))
+    print(smooth_gradient(page1 if page == 1 else page2))
 
 def main():
     current_page = 1
@@ -209,49 +216,44 @@ def main():
 
     while True:
         prompt = replace_user("\n{bright_blue}[user]{green}@{bright_blue}iskpa - ")
-        choice = input(colorize(prompt)).strip()
+        choice = input(colorize(prompt)).strip().lower()
 
-        if choice.lower() == "q":
+        if choice in ALIASES["quit"]:
             print(colorize("{yellow}Leaving..."))
             sys.exit(0)
 
-        if choice.lower() == "g":
-            open_github_link(GITHUB_LINK)
+        if choice in ALIASES["github"]:
+            open_link(GITHUB_LINK)
             continue
 
-        if choice.lower() == "d":
-            open_discord_link(DISCORD_LINK)
+        if choice in ALIASES["discord"]:
+            open_link(DISCORD_LINK)
             continue
 
-        if choice == "n" and current_page == 1:
-            
-            current_page = 2 
+        if choice in ALIASES["next"] and current_page == 1:
+            current_page = 2
             show_page(current_page)
             continue
 
-        if choice == "b" and current_page == 2:
-
-            current_page = 1 
+        if choice in ALIASES["back"] and current_page == 2:
+            current_page = 1
             show_page(current_page)
             continue
 
         if choice.isdigit():
             num = int(choice)
-            if current_page == 1 and num > 8:
-                print(colorize("{red}[-] Option is not here"))
-                continue
-            if current_page == 2 and num > 9:
-                print(colorize("{red}[-] Option is not here"))
+            if (current_page == 1 and num > 9) or (current_page == 2 and num > 10):
+                print(colorize("{red}[-] Option not available on this page"))
                 continue
 
             filepath = option_files.get(num)
             if filepath:
-                print(colorize("{cyan}Opening:{white} {filepath}"))
+                print(colorize("{cyan}[+] Opening:{white} {filepath}"))
                 open_python_file(filepath)
             else:
-                print(colorize("{red}Invalid option"))
+                print(colorize("{red}[-] Invalid option"))
         else:
-            print(colorize("{red}Invalid input"))
+            print(colorize("{red}[-] Invalid input"))
 
 if __name__ == "__main__":
     main()
