@@ -127,6 +127,7 @@ banner = r"""
 """
 
 page1 = r"""
+                            Next [N]                                             Back [B]
                             ____________________________________________________________
                             |                                                           |
                             | - DDoS [1]                                                |
@@ -137,6 +138,24 @@ page1 = r"""
                             | - Email Lookup [6]                                        |
                             | - Youtube Lookup [7]                                      |
                             | - Discord Server Lookup [8]                               |
+                            |                                                           |
+                            |___________________________________________________________|
+                            |  Github Profile [G]      Exit [Q]     Discord Server [D]  |
+                          =================================================================
+"""
+
+page2 = r"""
+                            Next [N]                                             Back [B]
+                            ____________________________________________________________
+                            |                                                           |
+                            |                                                           |
+                            |                                                           |
+                            |                                                           |
+                            |                                                           |
+                            |                                                           |
+                            |                                                           |
+                            |                                                           | 
+                            |                                                           |
                             |                                                           |
                             |___________________________________________________________|
                             |  Github Profile [G]      Exit [Q]     Discord Server [D]  |
@@ -163,9 +182,18 @@ def open_python_file(filepath):
     except Exception as e:
         print(colorize(f"{red}Execution error: {e}"))
 
-def main():
+def show_page(page):
+    os.system("cls" if OS_NAME == "Windows"
+    else "clear")
     print(smooth_gradient(banner))
-    print(smooth_gradient(page1))
+    if page == 1:
+        print(smooth_gradient(page1))
+    elif page == 2:
+        print(smooth_gradient(page2))
+
+def main():
+    current_page = 1
+    show_page(current_page)
 
     while True:
         prompt = replace_user("\n{bright_blue}[user]{green}@{bright_blue}iskpa - ")
@@ -183,8 +211,27 @@ def main():
             open_discord_link(DISCORD_LINK)
             continue
 
+        if choice == "n" and current_page == 1:
+            
+            current_page = 2 
+            show_page(current_page)
+            continue
+
+        if choice == "b" and current_page == 2:
+
+            current_page = 1 
+            show_page(current_page)
+            continue
+
         if choice.isdigit():
             num = int(choice)
+            if current_page == 1 and num > 8:
+                print(colorize("{red}[-] Option is not here"))
+                continue
+            if current_page == 2 and num > 9:
+                print(colorize("{red}[-] Option is not here"))
+                continue
+
             filepath = option_files.get(num)
             if filepath:
                 print(colorize("{cyan}Opening:{white} {filepath}"))
