@@ -165,7 +165,7 @@ page2 = r"""
                             ____________________________________________________________
                             |                                                           |
                             | - Website Check [10]                                      |
-                            |                                                           |
+                            | - Website Cloner [11]                                     |
                             |                                                           |
                             |                                                           |
                             |                                                           |
@@ -189,6 +189,7 @@ option_files = {
     8: "Program/discordlookup.py",
     9: "Program/websiteportscanner.py",
     10: "Program/websitecheck.py",
+    11: "Program/websitecloner.py",
 }
 
 ALIASES = {
@@ -242,7 +243,7 @@ def main():
 
         if choice.isdigit():
             num = int(choice)
-            if (current_page == 1 and num > 9) or (current_page == 2 and num > 10):
+            if (current_page == 1 and num > 9) or (current_page == 2 and num > 20):
                 print(colorize("{red}[-] Option not available on this page"))
                 continue
 
