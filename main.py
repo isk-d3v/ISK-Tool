@@ -166,7 +166,7 @@ page2 = r"""
                             |                                                           |
                             | - Website Check [10]                                      |
                             | - Website Cloner [11]                                     |
-                            |                                                           |
+                            | - Proxy Scraper [12]                                      |
                             |                                                           |
                             |                                                           |
                             |                                                           |
@@ -258,3 +258,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+
