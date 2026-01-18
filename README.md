@@ -3,9 +3,5 @@
 
 [![Discord](https://img.shields.io/badge/Discord-Server-blue)](https://discord.gg/tG9EXhwJp6)
 
-
-
-
-# Soon
-
+[![LSK-Shop](https://img.shields.io/badge/LSK-Shop-blue)](https://lskshop.mysellauth.com/)
 
