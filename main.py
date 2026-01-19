@@ -2,14 +2,18 @@ import sys
 import subprocess
 import importlib.util
 import platform
+import os
+import re
+import webbrowser
+import time
+from colorama import init, Fore, Style
+
 
 def is_module_installed(module):
     return importlib.util.find_spec(module) is not None
 
 def install_module(module):
-    subprocess.check_call([
-        sys.executable, "-m", "pip", "install", module
-    ])
+    subprocess.check_call([sys.executable, "-m", "pip", "install", module])
 
 def check_requirements():
     required_modules = {
@@ -35,14 +39,6 @@ def check_requirements():
 
 check_requirements()
 
-import os
-import re
-import webbrowser
-from colorama import init, Fore, Style
-
-GITHUB_LINK = "https://github.com/isk-d3v"
-
-DISCORD_LINK = "https://discord.gg/TefpZhrngk"
 
 init(autoreset=True)
 
@@ -58,81 +54,53 @@ def detect_os():
 
 OS_NAME = detect_os()
 
-colors = {
-    "black": Fore.BLACK,
-    "red": Fore.RED,
-    "green": Fore.GREEN,
-    "yellow": Fore.YELLOW,
-    "blue": Fore.BLUE,
-    "magenta": Fore.MAGENTA,
-    "cyan": Fore.CYAN,
-    "white": Fore.WHITE,
-    "bright_black": Fore.LIGHTBLACK_EX,
-    "bright_red": Fore.LIGHTRED_EX,
-    "bright_green": Fore.LIGHTGREEN_EX,
-    "bright_yellow": Fore.LIGHTYELLOW_EX,
-    "bright_blue": Fore.LIGHTBLUE_EX,
-    "bright_magenta": Fore.LIGHTMAGENTA_EX,
-    "bright_cyan": Fore.LIGHTCYAN_EX,
-    "bright_white": Fore.LIGHTWHITE_EX,
-}
 
-def smooth_gradient(text):
+def blue_gradient(index):
     gradient = [
-        172, 178, 184, 190, 226,
-        220, 214, 208, 202,
-        214, 220, 226, 190, 184, 178
+        18, 19, 20, 21,    
+        27, 26, 25, 24,     
+        33, 32, 31,        
+        26, 25, 24, 21, 20 
     ]
+    return gradient[index % len(gradient)]
 
-    result = ""
+
+
+def animated_draw_gradient(text, delay=0.002):
     idx = 0
+
     for char in text:
         if char == "\n":
-            result += char
+            print()
             continue
-        color_code = gradient[idx % len(gradient)]
-        result += f"\033[38;5;{color_code}m{char}"
+
+        color = blue_gradient(idx)
+        sys.stdout.write(f"\033[38;5;{color}m{char}")
+        sys.stdout.flush()
+
         idx += 1
-    return result + "\033[0m"
+        time.sleep(delay)
+
+    print(Style.RESET_ALL)
+
+
+
 
 def replace_user(text):
     username = os.environ.get("USERNAME") or os.environ.get("USER") or "Unknown"
     return text.replace("[user]", username)
 
-def open_github_link(url):
+
+GITHUB_LINK = "https://github.com/isk-d3v"
+DISCORD_LINK = "https://discord.gg/TefpZhrngk"
+
+def open_link(url):
     try:
         webbrowser.open(url)
-        print(colorize("{green}[+] Browser Opened successfully"))
-    except Execption as e:
-        print(colorize(f"{red}[-] Failed to open browser : {e}"))
+        print(Fore.GREEN + "[+] Browser opened successfully")
+    except Exception as e:
+        print(Fore.RED + f"[-] Failed to open browser: {e}")
 
-def open_discord_link(url):
-    try:
-        webbrowser.open(url)
-        print(colorize("{green}[+] Browser Opened successfully"))
-    except Execption as e:
-        print(colorize(f"{red}[-] Failed to open browser : {e}"))
-
-def colorize(text):
-    pattern = re.compile(r"\{(\w+)\}")
-    parts = []
-    last_pos = 0
-    current_color = ""
-
-    for match in pattern.finditer(text):
-        start, end = match.span()
-        color_name = match.group(1).lower()
-
-        if start > last_pos:
-            parts.append(f"{current_color}{text[last_pos:start]}{Style.RESET_ALL}")
-
-        current_color = colors.get(color_name, "")
-        last_pos = end
-
-    if last_pos < len(text):
-        parts.append(f"{current_color}{text[last_pos:]}{Style.RESET_ALL}")
-
-    return "".join(parts)
 
 banner = r"""
                                      ___ ____  _  __          _____           _ 
@@ -143,39 +111,39 @@ banner = r"""
 """
 
 page1 = r"""
-                            Next [N]                                             Back [B]
-                            ____________________________________________________________
-                            |                                                           |
-                            | - DDoS [1]                                                |
-                            | - Website Scanner [2]                                     |
-                            | - Ip Lookup [3]                                           |
-                            | - Python Encryptor [4]                                    |
-                            | - Phone Lookup [5]                                        |
-                            | - Email Lookup [6]                                        |
-                            | - Youtube Lookup [7]                                      |
-                            | - Discord Server Lookup [8]                               |
-                            | - Website Port Scanner [9]                                |
-                            |___________________________________________________________|
-                            |  Github Profile [G]      Exit [Q]     Discord Server [D]  |
-                          =================================================================
+                           Next [N]                                             Back [B]
+                          ╭───────────────────────────────────────────────────────────╮
+                          │                                                           │
+                          │ - DDoS [1]                                                │
+                          │ - Website Scanner [2]                                     │
+                          │ - Ip Lookup [3]                                           │
+                          │ - Python Encryptor [4]                                    │
+                          │ - Phone Lookup [5]                                        │
+                          │ - Email Lookup [6]                                        │
+                          │ - Youtube Lookup [7]                                      │
+                          │ - Discord Server Lookup [8]                               │
+                          │ - Website Port Scanner [9]                                │
+                          │───────────────────────────────────────────────────────────│
+                          │  Github Profile [G]      Exit [Q]     Discord Server [D]  │
+                          ╰───────────────────────────────────────────────────────────╯
 """
 
 page2 = r"""
-                            Next [N]                                             Back [B]
-                            ____________________________________________________________
-                            |                                                           |
-                            | - Website Check [10]                                      |
-                            | - Website Cloner [11]                                     |
-                            | - Proxy Scraper [12]                                      |
-                            |                                                           |
-                            |                                                           |
-                            |                                                           |
-                            |                                                           | 
-                            |                                                           |
-                            |                                                           |
-                            |___________________________________________________________|
-                            |  Github Profile [G]      Exit [Q]     Discord Server [D]  |
-                          =================================================================
+                           Next [N]                                             Back [B]
+                          ╭───────────────────────────────────────────────────────────╮
+                          │                                                           │
+                          │ - Website Checker [10]                                    │
+                          │ - Website Cloner [11]                                     │
+                          │ - Proxy Scraper [12]                                      │
+                          │                                                           │
+                          │                                                           │
+                          │                                                           │
+                          │                                                           │
+                          │                                                           │
+                          │                                                           │
+                          │───────────────────────────────────────────────────────────│
+                          │  Github Profile [G]      Exit [Q]     Discord Server [D]  │
+                          ╰───────────────────────────────────────────────────────────╯
 """
 
 option_files = {
@@ -194,34 +162,41 @@ option_files = {
 }
 
 ALIASES = {
-    "quit": ["q", "Q", "quit", "exit"],
-    "github": ["g", "G", "git", "github"],
-    "discord": ["d", "D", "dc", "discord"],
-    "next": ["n", "N", "next"],
-    "back": ["b", "B", "back"]
+    "quit": ["q", "quit", "exit"],
+    "github": ["g", "git", "github"],
+    "discord": ["d", "dc", "discord"],
+    "next": ["n", "next"],
+    "back": ["b", "back"]
 }
+
 
 def open_python_file(filepath):
     if not os.path.exists(filepath):
-        print(colorize("{red}[-] File not found"))
+        print(Fore.RED + "[-] File not found")
         return
     subprocess.run([sys.executable, filepath])
 
 def show_page(page):
     os.system("cls" if OS_NAME == "Windows" else "clear")
-    print(smooth_gradient(banner))
-    print(smooth_gradient(page1 if page == 1 else page2))
+
+    print(Fore.BLUE + banner + Style.RESET_ALL)
+
+    if page == 1:
+        animated_draw_gradient(page1)
+    else:
+        animated_draw_gradient(page2)
+
 
 def main():
     current_page = 1
     show_page(current_page)
 
     while True:
-        prompt = replace_user("\n{bright_blue}[user]{green}@{bright_blue}iskpa - ")
-        choice = input(colorize(prompt)).strip().lower()
+        prompt = replace_user(f"\n{Fore.BLUE}[user]{Fore.WHITE}@{Fore.BLUE}iskpa ➜ ")
+        choice = input(prompt).strip().lower()
 
         if choice in ALIASES["quit"]:
-            print(colorize("{yellow}Leaving..."))
+            print(Fore.YELLOW + "Leaving...")
             sys.exit(0)
 
         if choice in ALIASES["github"]:
@@ -244,20 +219,14 @@ def main():
 
         if choice.isdigit():
             num = int(choice)
-            if (current_page == 1 and num > 9) or (current_page == 2 and num > 20):
-                print(colorize("{red}[-] Option not available on this page"))
-                continue
-
             filepath = option_files.get(num)
             if filepath:
-                print(colorize("{green}[+] Opening:{white} {filepath}"))
+                print(Fore.CYAN + f"[+] Opening: {filepath}")
                 open_python_file(filepath)
             else:
-                print(colorize("{red}[-] Invalid option"))
+                print(Fore.RED + "[-] Invalid option")
         else:
-            print(colorize("{red}[-] Invalid input"))
+            print(Fore.RED + "[-] Invalid input")
 
 if __name__ == "__main__":
     main()
-
-
