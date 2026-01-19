@@ -250,7 +250,7 @@ def main():
 
             filepath = option_files.get(num)
             if filepath:
-                print(colorize("{cyan}[+] Opening:{white} {filepath}"))
+                print(colorize("{green}[+] Opening:{white} {filepath}"))
                 open_python_file(filepath)
             else:
                 print(colorize("{red}[-] Invalid option"))
