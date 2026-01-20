@@ -162,11 +162,11 @@ option_files = {
 }
 
 ALIASES = {
-    "quit": ["q", "quit", "exit"],
-    "github": ["g", "git", "github"],
-    "discord": ["d", "dc", "discord"],
-    "next": ["n", "next"],
-    "back": ["b", "back"]
+    "quit": ["q", "Q", "quit", "exit"],
+    "github": ["g", "G", "git", "github"],
+    "discord": ["d", "D", "dc", "discord"],
+    "next": ["n", "N", "next"],
+    "back": ["b", "N", "back"]
 }
 
 
@@ -230,3 +230,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+
