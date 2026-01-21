@@ -103,70 +103,44 @@ def open_link(url):
 
 
 banner = r"""
-                                     ___ ____  _  __          _____           _ 
-                                    |_ _/ ___|| |/ /         |_   _|__   ___ | |
-                                     | |\___ \| ' /   _____    | |/ _ \ / _ \| |
-                                     | | ___) | . \  |_____|   | | (_) | (_) | |
-                                    |___|____/|_|\_\           |_|\___/ \___/|_|
+                                          ___ ____  _  __          _____           _ 
+                                         |_ _/ ___|| |/ /         |_   _|__   ___ | |
+                                          | |\___ \| ' /   _____    | |/ _ \ / _ \| |
+                                          | | ___) | . \  |_____|   | | (_) | (_) | |
+                                         |___|____/|_|\_\           |_|\___/ \___/|_|
 """
 
 page1 = r"""
-                           Next [N]                                             Back [B]
-                          ╭───────────────────────────────────────────────────────────╮
-                          │                                                           │
-                          │ - DDoS [1]                                                │
-                          │ - Website Scanner [2]                                     │
-                          │ - Ip Lookup [3]                                           │
-                          │ - Python Encryptor [4]                                    │
-                          │ - Phone Lookup [5]                                        │
-                          │ - Email Lookup [6]                                        │
-                          │ - Youtube Lookup [7]                                      │
-                          │ - Discord Server Lookup [8]                               │
-                          │ - Website Port Scanner [9]                                │
-                          │───────────────────────────────────────────────────────────│
-                          │  Github Profile [G]      Exit [Q]     Discord Server [D]  │
-                          ╰───────────────────────────────────────────────────────────╯
+     
+     
+                      [Browser Panel]                  [Osint Panel]
+               ╭──────────────────────────╮     ╭──────────────────────────╮     ╭──────────────────────────╮
+               │ - DDoS [1]               │     │ - Phone Lookup [9]       │     │                          │
+               │ - Website Check [2]      │     │ - Email Lookup [10]      │     │                          │
+               │ - Website Clone [3]      │     │ - Youtube Lookup [11]    │     │                          │
+               │ - Website Port Scan [4]  │     │ - Discord Serv  [12]     │     │                          │
+               │ - Proxy Scraper [5]      │     │ - DS Id Lookup [13] ; ;  │     │                          │
+               │ - Ip Lookup [6]          │     │ - Github Lookup [14] ; ; │     │                          │
+               │                          │     │ - Paypal Lookyp [15] ; ; │     │                          │
+               │                          │     │                          │     │                          │
+               ╰──────────────────────────╯     ╰──────────────────────────╯     ╰──────────────────────────╯
 """
 
-page2 = r"""
-                           Next [N]                                             Back [B]
-                          ╭───────────────────────────────────────────────────────────╮
-                          │                                                           │
-                          │ - Website Checker [10]                                    │
-                          │ - Website Cloner [11]                                     │
-                          │ - Proxy Scraper [12]                                      │
-                          │                                                           │
-                          │                                                           │
-                          │                                                           │
-                          │                                                           │
-                          │                                                           │
-                          │                                                           │
-                          │───────────────────────────────────────────────────────────│
-                          │  Github Profile [G]      Exit [Q]     Discord Server [D]  │
-                          ╰───────────────────────────────────────────────────────────╯
-"""
 
 option_files = {
     1: "Program/ddos.py",
-    2: "Program/website-scanner.py",
-    3: "Program/iplookup.py",
-    4: "Program/pyencryptor.py",
-    5: "Program/phonelookup.py",
-    6: "Program/emaillookup.py",
-    7: "Program/youtubelookup.py",
-    8: "Program/discordlookup.py",
-    9: "Program/websiteportscanner.py",
-    10: "Program/websitecheck.py",
-    11: "Program/websitecloner.py",
-    12: "Program/proxyscraper.py"
+    2: "Program/websitecheck.py",
+    3: "Program/websiteclone",
+    4: "Program/websiteportscanner.py",
+    5: "Program/proxyscraper.py",
+    6: "Program/iplookup.py",
+    
 }
 
 ALIASES = {
-    "quit": ["q", "Q", "quit", "exit"],
-    "github": ["g", "G", "git", "github"],
-    "discord": ["d", "D", "dc", "discord"],
-    "next": ["n", "N", "next"],
-    "back": ["b", "N", "back"]
+    "quit": ["q", "quit", "exit"],
+    "github": ["g", "git", "github"],
+    "discord": ["d", "dc", "discord"],
 }
 
 
@@ -176,20 +150,13 @@ def open_python_file(filepath):
         return
     subprocess.run([sys.executable, filepath])
 
-def show_page(page):
+def show_page():
     os.system("cls" if OS_NAME == "Windows" else "clear")
-
     print(Fore.BLUE + banner + Style.RESET_ALL)
-
-    if page == 1:
-        animated_draw_gradient(page1)
-    else:
-        animated_draw_gradient(page2)
-
+    animated_draw_gradient(page1)
 
 def main():
-    current_page = 1
-    show_page(current_page)
+    show_page()
 
     while True:
         prompt = replace_user(f"\n{Fore.BLUE}[user]{Fore.WHITE}@{Fore.BLUE}iskpa ➜ ")
@@ -207,16 +174,6 @@ def main():
             open_link(DISCORD_LINK)
             continue
 
-        if choice in ALIASES["next"] and current_page == 1:
-            current_page = 2
-            show_page(current_page)
-            continue
-
-        if choice in ALIASES["back"] and current_page == 2:
-            current_page = 1
-            show_page(current_page)
-            continue
-
         if choice.isdigit():
             num = int(choice)
             filepath = option_files.get(num)
@@ -230,4 +187,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-
