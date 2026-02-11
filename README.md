@@ -8,5 +8,4 @@
 
 # Soon
 
-Update soon les gars la jpp jsuis dsl
 

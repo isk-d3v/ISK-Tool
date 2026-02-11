@@ -6,3 +6,4 @@ email-validator
 dnspython
 beautifulsoup4
 yt-dlp
+fade

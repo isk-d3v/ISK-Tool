@@ -65,27 +65,6 @@ def blue_gradient(index):
     return gradient[index % len(gradient)]
 
 
-
-def animated_draw_gradient(text, delay=0.002):
-    idx = 0
-
-    for char in text:
-        if char == "\n":
-            print()
-            continue
-
-        color = blue_gradient(idx)
-        sys.stdout.write(f"\033[38;5;{color}m{char}")
-        sys.stdout.flush()
-
-        idx += 1
-        time.sleep(delay)
-
-    print(Style.RESET_ALL)
-
-
-
-
 def replace_user(text):
     username = os.environ.get("USERNAME") or os.environ.get("USER") or "Unknown"
     return text.replace("[user]", username)
@@ -115,13 +94,13 @@ page1 = r"""
      
                       [Browser Panel]                  [Osint Panel]
                ╭──────────────────────────╮     ╭──────────────────────────╮     ╭──────────────────────────╮
-               │ - DDoS [1]               │     │ - Phone Lookup [9]       │     │                          │
-               │ - Website Check [2]      │     │ - Email Lookup [10]      │     │                          │
-               │ - Website Clone [3]      │     │ - Youtube Lookup [11]    │     │                          │
-               │ - Website Port Scan [4]  │     │ - Discord Serv  [12]     │     │                          │
-               │ - Proxy Scraper [5]      │     │ - DS Id Lookup [13] ; ;  │     │                          │
-               │ - Ip Lookup [6]          │     │ - Github Lookup [14] ; ; │     │                          │
-               │                          │     │ - Paypal Lookyp [15] ; ; │     │                          │
+               │ - DDoS [1]               │     │ - Phone Lookup [8]       │     │                          │
+               │ - Website Check [2]      │     │ - Email Lookup [9]       │     │                          │
+               │ - Website Clone [3]      │     │ - Youtube Lookup [10]    │     │                          │
+               │ - Website Port Scan [4]  │     │ - Discord Serv Lk [11]   │     │                          │
+               │ - Proxy Scraper [5]      │     │ - DS Id Lookup [12]      │     │                          │
+               │ - Ip Lookup [6]          │     │ - Github Lookup [13]     │     │                          │
+               │ - Proxy Checker [7]      │     │ - Paypal Lookyp [14] ; ; │     │                          │
                │                          │     │                          │     │                          │
                ╰──────────────────────────╯     ╰──────────────────────────╯     ╰──────────────────────────╯
 """
@@ -134,6 +113,13 @@ option_files = {
     4: "Program/websiteportscanner.py",
     5: "Program/proxyscraper.py",
     6: "Program/iplookup.py",
+    7: "Program/proxychecker.py",
+    8: "Program/phonelookup.py",
+    9: "Program/emaillookup.py",
+    10: "Program/youtubelookup.py",
+    11: "Program/discordlookup.py",
+    12: "Program/discordidlookup.py",
+    13: "Program/githublookup.py",
     
 }
 
@@ -152,8 +138,10 @@ def open_python_file(filepath):
 
 def show_page():
     os.system("cls" if OS_NAME == "Windows" else "clear")
+
     print(Fore.BLUE + banner + Style.RESET_ALL)
-    animated_draw_gradient(page1)
+    print(Fore.BLUE + page1 + Style.RESET_ALL)
+    print(Style.RESET_ALL)
 
 def main():
     show_page()
