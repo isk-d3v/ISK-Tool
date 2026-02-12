@@ -29,12 +29,13 @@ def check_requirements():
         "flask": "flask",
         "fastapi": "fastapi",
         "uvicorn": "uvicorn",
-        "wheel": "wheel"
+        "wheel": "wheel",
+        "fade": "fade",
     }
 
     for import_name, pip_name in required_modules.items():
         if not is_module_installed(import_name):
-            print(f"[+] Installing {pip_name}...")
+            print(Fore.GREEN + f"[+] Installing {pip_name}...")
             install_module(pip_name)
 
 check_requirements()
@@ -89,7 +90,7 @@ banner = r"""
                                          |___|____/|_|\_\           |_|\___/ \___/|_|
 """
 
-page1 = r"""
+menu = r"""
      
      
                       [Browser Panel]                  [Osint Panel]
@@ -100,10 +101,11 @@ page1 = r"""
                │ - Website Port Scan [4]  │     │ - Discord Serv Lk [11]   │     │                          │
                │ - Proxy Scraper [5]      │     │ - DS Id Lookup [12]      │     │                          │
                │ - Ip Lookup [6]          │     │ - Github Lookup [13]     │     │                          │
-               │ - Proxy Checker [7]      │     │ - Paypal Lookyp [14] ; ; │     │                          │
+               │ - Proxy Checker [7]      │     │ - Paypal Lookup [14]     │     │                          │
                │                          │     │                          │     │                          │
                ╰──────────────────────────╯     ╰──────────────────────────╯     ╰──────────────────────────╯
 """
+
 
 
 option_files = {
@@ -120,7 +122,6 @@ option_files = {
     11: "Program/discordlookup.py",
     12: "Program/discordidlookup.py",
     13: "Program/githublookup.py",
-    
 }
 
 ALIASES = {
@@ -136,12 +137,24 @@ def open_python_file(filepath):
         return
     subprocess.run([sys.executable, filepath])
 
-def show_page():
-    os.system("cls" if OS_NAME == "Windows" else "clear")
 
+def animate_panels():
+    os.system("cls" if OS_NAME == "Windows" else "clear")
+    
+    for frame in panel_frames:
+        os.system("cls" if OS_NAME == "Windows" else "clear")
+        print(Fore.BLUE + banner + Style.RESET_ALL)
+        print(Fore.BLUE + menu + Style.RESET_ALL)
+        time.sleep(0.15)
+    
+    time.sleep(0.3)
+
+
+def show_page():
+    os.system("cls" if OS_NAME == "Windows" else "clear")    
     print(Fore.BLUE + banner + Style.RESET_ALL)
-    print(Fore.BLUE + page1 + Style.RESET_ALL)
-    print(Style.RESET_ALL)
+    print(Fore.BLUE + menu + Style.RESET_ALL)
+
 
 def main():
     show_page()
@@ -152,6 +165,11 @@ def main():
 
         if choice in ALIASES["quit"]:
             print(Fore.YELLOW + "Leaving...")
+            for frame in reversed(menu[:4]):
+                os.system("cls" if OS_NAME == "Windows" else "clear")
+                print(Fore.BLUE + banner + Style.RESET_ALL)
+                print(Fore.BLUE + menu + Style.RESET_ALL)
+                time.sleep(0.1)
             sys.exit(0)
 
         if choice in ALIASES["github"]:
@@ -168,6 +186,7 @@ def main():
             if filepath:
                 print(Fore.CYAN + f"[+] Opening: {filepath}")
                 open_python_file(filepath)
+                show_page()
             else:
                 print(Fore.RED + "[-] Invalid option")
         else:
