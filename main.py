@@ -95,10 +95,10 @@ menu = r"""
      
                       [Browser Panel]                  [Osint Panel]
                ╭──────────────────────────╮     ╭──────────────────────────╮     ╭──────────────────────────╮
-               │ - DDoS [1]               │     │ - Phone Lookup [8]       │     │ - Website Cloner [15]    │
-               │ - Website Check [2]      │     │ - Email Lookup [9]       │     │ - Website Port [16]      │
-               │ - Website Clone [3]      │     │ - Youtube Lookup [10]    │     │ - Website Check [17]     │
-               │ - Website Port Scan [4]  │     │ - Discord Serv Lk [11]   │     │ - Website Scan [18]      │
+               │ - DDoS [1]               │     │ - Phone Lookup [8]       │     │                          │
+               │ - Website Check [2]      │     │ - Email Lookup [9]       │     │                          │
+               │ - Website Clone [3]      │     │ - Youtube Lookup [10]    │     │                          │
+               │ - Website Port Scan [4]  │     │ - Discord Serv Lk [11]   │     │                          │
                │ - Proxy Scraper [5]      │     │ - DS Id Lookup [12]      │     │                          │
                │ - Ip Lookup [6]          │     │ - Github Lookup [13]     │     │                          │
                │ - Proxy Checker [7]      │     │ - Paypal Lookup [14]     │     │                          │
@@ -122,11 +122,6 @@ option_files = {
     11: "Program/discordlookup.py",
     12: "Program/discordidlookup.py",
     13: "Program/githublookup.py",
-    
-    15: "Program/websiteclone.py",
-    16: "Program/websiteportscanner.py",
-    17: "Program/websitecheck.py",
-    18: "Program/website-scanner.py",
 }
 
 ALIASES = {
